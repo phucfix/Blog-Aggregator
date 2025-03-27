@@ -15,7 +15,7 @@ type Config struct {
 
 func (c *Config) SetUser(userName string) error {
     c.CurrentUsername = userName
-    return nil
+    return write(*c);
 }
 
 // Read a json file
