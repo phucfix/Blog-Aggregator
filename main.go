@@ -36,6 +36,8 @@ func main() {
     appCommands := commands{ make(map[string]func(*state, command) error) }
     appCommands.register("login", handlerLogin)
     appCommands.register("register", handlerRegister)
+    appCommands.register("reset", handlerReset)
+    appCommands.register("users", handlerGetUsers)
 
     // Check for user command line argument
     if len(os.Args) < 2 {
