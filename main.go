@@ -3,24 +3,39 @@ package main
 import (
     "log"
     "os"
+    "database/sql"
 
+    _ "github.com/lib/pq"
+
+    "github.com/phucfix/gator/internal/database"
     "github.com/phucfix/gator/internal/config"
 )
 
 type state struct {
+    db  *database.Queries
     cfg *config.Config
 }
 
 func main() {
+    // Load in database URL to the config struct
     // Init app state, config and register cmds
     cfg, err := config.Read()
     if err != nil {
         log.Fatalf("Error reading config file: %v\n", err)
     }
+    db, err := sql.Open("postgres", cfg.DBURL)
+    if err != nil {
+        log.Fatalf("Error opening database: %v\n", err)
+    }
 
-    appState := state{ &cfg }
+    // Use generated database package to create a new *database.Queries
+    dbQueries := database.New(db)
+
+    appState := state{ dbQueries, &cfg }
+
     appCommands := commands{ make(map[string]func(*state, command) error) }
     appCommands.register("login", handlerLogin)
+    appCommands.register("register", handlerRegister)
 
     // Check for user command line argument
     if len(os.Args) < 2 {
@@ -34,4 +49,5 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
+
 }
