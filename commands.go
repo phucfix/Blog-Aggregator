@@ -16,7 +16,7 @@ type commands struct {
 }
 
 //  This method registers a new handler function for a command name.
-func (c *commands) register(name string, f func(*state,command) error) error {
+func (c *commands) register(name string, f func(*state, command) error) error {
     if c.commandName == nil {
         return fmt.Errorf("Command Map is not init")
     }

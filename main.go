@@ -38,6 +38,9 @@ func main() {
     appCommands.register("register", handlerRegister)
     appCommands.register("reset", handlerReset)
     appCommands.register("users", handlerGetUsers)
+    appCommands.register("agg", handlerFetchFeed)
+	appCommands.register("addfeed", handlerAddFeed)
+	appCommands.register("feeds", handlerGetFeeds)
 
     // Check for user command line argument
     if len(os.Args) < 2 {

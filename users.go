@@ -13,7 +13,7 @@ func handlerGetUsers(s *state, cmd command) error {
     // Get all registered users
     users, err := s.db.GetUsers(context.Background())
     if err != nil {
-        return fmt.Errorf("Couldn't get user: %w", err)
+        return fmt.Errorf("Couldn't get users: %w", err)
     }
 
     for _, user := range users {

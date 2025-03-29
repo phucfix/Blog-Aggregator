@@ -12,7 +12,7 @@ func handlerLogin(s *state, cmd command) error {
     name := cmd.args[0]
 
     // Check if user in database or not
-    _, err := s.db.GetUser(context.Background(), name)
+    _, err := s.db.GetUserFromName(context.Background(), name)
     if err != nil {
         return fmt.Errorf("couldn't find user: %w", err)
     }
